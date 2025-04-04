@@ -1,0 +1,63 @@
+NIR Composition Analyzer
+Machine Learning for Spectroscopy Data
+
+1. Overview
+Purpose: Predict material composition (protein, fat, carbs) from NIR spectra using AI.
+Key Features:
+
+Interactive GUI with 6 visualization types
+
+Real-time predictions via ONNX model
+
+Error analysis and sample comparison
+
+2. How It Works
+Step 1: Load Data
+Input: CSV file with:
+
+100 columns (NIR spectra: 800–2500 nm)
+
+3 columns (true protein/fat/carbs %)
+
+Click "Browse" to select file → "Load & Predict".
+
+Step 2: Model Prediction
+Pre-trained ONNX model processes spectra.
+
+Output: Predicted compositions for all samples.
+
+Step 3: Visualize Results
+Six plots generated:
+
+Plot	What It Shows	Why It Matters
+1. NIR Spectrum	Absorbance vs. wavelength	Raw spectral features
+2. True vs Predicted	Side-by-side bar chart	Model accuracy per component
+3. Prediction Error	Difference (Prediction - Truth)	Over/under-prediction trends
+4. Feature Importance	Spectral gradient as importance	Key wavelengths for predictions
+5. All Samples Scatter	True vs. predicted for all data	Global model performance
+6. Residuals	Errors vs. predicted values	Checks for systematic bias
+3. Example Output
+Sample 5 Results:
+
+True: Protein=15.2%, Fat=10.1%, Carbs=60.3%
+
+Predicted: Protein=14.9%, Fat=9.8%, Carbs=61.0%
+
+Error: Protein=-0.3, Fat=-0.3, Carbs=+0.7
+
+Insights:
+
+Model slightly underestimates fat/protein.
+
+Wavelengths near 1500 nm drive predictions.
+
+4. Technical Details
+Model: ONNX format (optimized for cross-platform use).
+
+Libraries: onnxruntime, pandas, matplotlib, tkinter.
+
+Data Requirements:
+
+Spectra: 100 points (800–2500 nm range).
+
+Compositions: Protein, fat, carbs as percentages.
