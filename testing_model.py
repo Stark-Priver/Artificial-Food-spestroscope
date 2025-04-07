@@ -187,15 +187,16 @@ class NIRAnalyzerApp:
         ax.legend()
         ax.grid(True)
         
-        # Plot 6: Residuals Plot
+        # Plot 6: Residuals Plot (Percentage)
         ax = self.axes[1, 2]
-        residuals = self.y_pred - self.y_true
+        # Calculate percentage residuals: (predicted - true)/true * 100
+        percentage_residuals = (self.y_pred - self.y_true) / self.y_true * 100
         for j, comp in enumerate(components):
-            ax.scatter(self.y_pred[:, j], residuals[:, j], label=comp, alpha=0.6)
+            ax.scatter(self.y_pred[:, j], percentage_residuals[:, j], label=comp, alpha=0.6)
         ax.axhline(0, color='black', linestyle='--')
         ax.set_xlabel("Predicted Composition (%)")
-        ax.set_ylabel("Residuals")
-        ax.set_title("Residuals Analysis")
+        ax.set_ylabel("Residuals (% of true value)")
+        ax.set_title("Percentage Residuals Analysis")
         ax.legend()
         ax.grid(True)
         
