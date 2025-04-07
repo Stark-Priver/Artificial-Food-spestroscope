@@ -187,18 +187,22 @@ class NIRAnalyzerApp:
         ax.legend()
         ax.grid(True)
         
-        # Plot 6: Residuals Plot (Percentage)
+       
+        # ===== NEW PLOT 6: REMAINING COMPOSITION =====
         ax = self.axes[1, 2]
-        # Calculate percentage residuals: (predicted - true)/true * 100
-        percentage_residuals = (self.y_pred - self.y_true) / self.y_true * 100
-        for j, comp in enumerate(components):
-            ax.scatter(self.y_pred[:, j], percentage_residuals[:, j], label=comp, alpha=0.6)
-        ax.axhline(0, color='black', linestyle='--')
-        ax.set_xlabel("Predicted Composition (%)")
-        ax.set_ylabel("Residuals (% of true value)")
-        ax.set_title("Percentage Residuals Analysis")
-        ax.legend()
-        ax.grid(True)
+        
+        # Calculate remaining composition (100% - sum of protein, fat, carbs)
+        remaining_true = 100 - np.sum(self.y_true, axis=1)
+        remaining_pred = 100 - np.sum(self.y_pred, axis=1)
+        
+        # Plot remaining composition for the current sample
+        ax.bar(['True', 'Predicted'], 
+            [remaining_true[i], remaining_pred[i]], 
+            color=['green', 'orange'])
+        
+        ax.set_ylabel("Remaining Composition (%)")
+        ax.set_title("Unaccounted Composition")
+        ax.grid(True, axis='y')
         
         self.canvas.draw()
     
